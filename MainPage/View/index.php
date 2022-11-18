@@ -1,7 +1,6 @@
 <?php
 // session_start();
-if (empty($_COOKIE['Name']))
-{
+if (empty($_COOKIE['Name'])) {
   header("Location: ../");
   exit();
 }
@@ -51,26 +50,36 @@ if (empty($_COOKIE['Name']))
         <?php if (isset($_GET['page']) && strtolower($_GET['page']) === 'about') : ?>
           <p>Web tạo ra nhằm thực hiện và khắc phục lỗ hổng XSS.</p>
         <?php else : ?>
+          <form action="./" method="post" accept-charset="utf-8" id="form" id="form" style="display: flex; flex-direction: column;">
 
+            <label for="comment_author" class="required">Your name</label>
+            <input type="text" name="name" id="comment_author" value="" tabindex="1" required="required" value="<?php if (!empty($name)) {echo $name;} ?>" style="width:240px ;flex: 1;"placeholder="Tên...">
+
+            <label for="comment" class="required">Your comment</label>
+            <textarea name="name2" id="comment" rows="10" tabindex="2" required="required" style="flex: 1;"placeholder="Binh luan..."></textarea>
+
+            <input type="hidden" name="comment_post_ID" value="<?php echo ($comment_post_ID); ?>" id="comment_post_ID" />
+            <input name="submit" class="primary" type="submit" value="Submit comment"style="width: 180px;" />
+          </form>
           <!-- //form gửi submit -->
-          <form action="MainPage.php" method="post" accept-charset="utf-8" id="form" style="display: flex; flex-direction: column;">
-            Tên bạn là: <input type="text" name="name" class="t1" style="width:240px ;flex: 1;" value="<?php if (!empty($name)) {
-                                                                            echo $name;
-                                                                          } ?>" placeholder="John Doe..." autofocus required>
+          <!-- <form action="MainPage.php" method="post" accept-charset="utf-8" id="form" style="display: flex; flex-direction: column;">
+            Tên bạn là: <input type="text" name="name" class="t1" style="width:240px ;flex: 1;" value="<?php if (!empty($name)) {echo $name;} ?>" placeholder="John Doe..." autofocus required>
             Binh luan: <input type="text" name="name2" class="t2" style="width:240px ; flex: 1;" value="" placeholder="Binh Luan.." required>
             <button type="submit" class="primary" style="width: 80px;">Submit!</button>
-          </form>
+          </form> -->
           <!-- //form gửi submit -->
 
         <?php endif; ?>
         <!-- <img src="smiley.gif" alt="Smiley face" width="42" height="42" style="vertical-align:middle"> -->
         <div>
-          <center><img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/301701055_465250165461896_4261023679521712020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pKdUf_hBI7kAX9uH-1r&_nc_ht=scontent.fdad1-4.fna&oh=03_AdR_4E5suBxNEuqClaXkiVKcTrCUURdfJ9gd7IoMFn5RWA&oe=638CA889" alt="Đề bài" width="500" height="500" style="vertical-align:middle; align-items: center;"></center>
+          <!-- <center><img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/301701055_465250165461896_4261023679521712020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pKdUf_hBI7kAX9uH-1r&_nc_ht=scontent.fdad1-4.fna&oh=03_AdR_4E5suBxNEuqClaXkiVKcTrCUURdfJ9gd7IoMFn5RWA&oe=638CA889" alt="Đề bài" width="500" height="500" style="vertical-align:middle; align-items: center;"></center> -->
+
         </div>
         <div id="name">
-          <?php if (!empty($name) && !empty($name2)) : ?>
+          <?php
+          if (!empty($_REQUEST['name']) && !empty($_REQUEST['name2'])) : ?>
             <span class="toast large">
-              Bình luận của <?php echo $name; ?>: <?php echo $name2 ?>
+              Bình luận của <?php echo $_REQUEST['name']; ?>: <?php echo $_REQUEST['name2'] ?>
             </span>
           <?php endif; ?>
         </div>

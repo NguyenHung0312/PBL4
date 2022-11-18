@@ -17,6 +17,11 @@ class Ctrl_Admin{
 
         header("Location: ../");
         }
+        if(isset($_GET['xem'])){
+            $modelStudent = new Model_Admin();
+            // $student = $modelStudent->getStudentDetail($_GET['stid']);
+            include_once("./View/StudentDetail.php");
+        }
     }
 };
 $C_Student = new Ctrl_Admin();

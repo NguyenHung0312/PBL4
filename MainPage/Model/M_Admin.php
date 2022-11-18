@@ -1,5 +1,6 @@
 <?php
 include_once("./E_Admin.php");
+include_once("./E_Cmt.php");
 class Model_Admin
 {
     public function __construct()
@@ -10,10 +11,8 @@ class Model_Admin
         $user = "pbl4";
         $password = "Nguyenhung@0312";
         $database = "dulieu1";
-        $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
-        return $db;
     }
-    public function getAdminLogin($u,$p)
+    public function getAdminLogin($u, $p)
     {
         $section = $_REQUEST['lb'];
         $user = "pbl4";
@@ -56,15 +55,14 @@ class Model_Admin
                     $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
                     foreach ($db->query("SELECT * FROM $table") as $row) {
                         if ($row[1] == $u && $row[2] == $p) {
-                            echo "Logged in!";
                             $_SESSION['user'] = $row[1];
 
                             $_SESSION['pass'] = $row[2];
 
                             $_SESSION['id'] = $row[0];
                             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                                $cookie_value=$_SESSION['user'];
-                                setcookie("Name", $cookie_value,0,"/PBL4/MainPage/View/");
+                                $cookie_value = $_SESSION['user'];
+                                setcookie("Name", $cookie_value, 0, "/PBL4/MainPage/View/");
                             }
                             header("Location: ../View/");
                             exit();
@@ -84,6 +82,18 @@ class Model_Admin
             exit();
         }
     }
+    public function getComment($u, $p)
+    {
+        $user = "pbl4";
+        $password = "Nguyenhung@0312";
+        $database = "dulieu1";
+        $table = "comments";
+
+        $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+        foreach ($db->query("SELECT * FROM $table") as $row) {
+        }
+    }
+
     // public function getAdminDetail($stid)
     // {
     //     $allAdmin = $this->getAdminLogin();
