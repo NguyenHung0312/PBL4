@@ -1,29 +1,9 @@
 <?php
-session_start();
-if (!empty($_SESSION['user']) && !empty($_SESSION['pass']) && !empty($_SESSION['id'])){
-  $u = $_SESSION['user'];
-  $p = $_SESSION['pass'];
-  $id = $_SESSION['id'];
-  setcookie($u, $p, time() + 3600); // secret cookie for demo
-}
-// if (isset($_POST['name2']) && !empty($_POST['name2'])) {
-//   $name2 = $_POST['name2'];
-// } 
-// if (isset($_POST['name']) && !empty($_POST['name'])) {
-//   $name = $_POST['name'];
-//   setcookie('name', $name, 0);
-// } else {
-//   $name = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
-// }
-// $html = "";
-
-if ($_SERVER['form'] == "POST") {
-    if (!isset ($_SESSION['user'])) {
-        $_SESSION['user'] = 'null';
-    }
-    // $_SESSION['user']++;
-    $cookie_value = $_SESSION['user'];
-    setcookie("dvwaSession", $cookie_value);
+// session_start();
+if (empty($_COOKIE['Name']))
+{
+  header("Location: ../");
+  exit();
 }
 ?>
 <!DOCTYPE html>
@@ -52,7 +32,7 @@ if ($_SERVER['form'] == "POST") {
     <a href="./" class="button">Home</a>
     <a href="./?page=About" class="button">About</a>
     <a href="./#name=Hung" class="button">DOM-based XSS</a>
-    <a href="../" class="button" style="float: right;" onclick="RS()">
+    <a href="../Controller/C_Admin.php?del=0" class="button" style="float: right;" onclick="RS()">
       Log Out
     </a>
 

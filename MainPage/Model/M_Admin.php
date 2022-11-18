@@ -15,9 +15,6 @@ class Model_Admin
     }
     public function getAdminLogin($u,$p)
     {
-        // $link = mysqli_connect("localhost","root","") or die ("Khong the ket noi den CSDL MYSQL");
-        // mysqli_select_db($link, "dulieu");
-        // $sql = "select * from sinhvien";
         $section = $_REQUEST['lb'];
         $user = "pbl4";
         $password = "Nguyenhung@0312";
@@ -65,6 +62,10 @@ class Model_Admin
                             $_SESSION['pass'] = $row[2];
 
                             $_SESSION['id'] = $row[0];
+                            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                $cookie_value=$_SESSION['user'];
+                                setcookie("Name", $cookie_value,0,"/PBL4/MainPage/View/");
+                            }
                             header("Location: ../View/");
                             exit();
                             // header("Location:formLogin.php");
