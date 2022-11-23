@@ -1,26 +1,30 @@
-<?php 
+<?php
 include_once("../Model/M_Admin.php");
-class Ctrl_Admin{
-    public function invoke(){
-        if(isset($_REQUEST['username'])&&isset($_REQUEST['password'])){
-            $modelStudent = new Model_Admin();
-            $student = $modelStudent->getAdminLogin($_REQUEST['username'],$_REQUEST['password']);
-            // include_once("./View/StudentDetail.php");
+class Ctrl_Admin
+{
+    public function invoke()
+    {
+        if (isset($_REQUEST['login'])) {
+
+            if (isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
+                $modelStudent = new Model_Admin();
+                $student = $modelStudent->getAdminLogin($_REQUEST['username'], $_REQUEST['password']);
+                // include_once("./View/StudentDetail.php");
+            }
         }
-        if(isset($_REQUEST['del']))
-        {
-        session_start();
+        if (isset($_REQUEST['del'])) {
+            session_start();
 
-        session_unset();
+            session_unset();
 
-        session_destroy();
+            session_destroy();
 
-        header("Location: ../");
+            header("Location: ../");
         }
-        if(isset($_GET['xem'])){
+        if (isset($_GET['xem'])) {
             $modelStudent = new Model_Admin();
             // $student = $modelStudent->getStudentDetail($_GET['stid']);
-            include_once("./View/StudentDetail.php");
+            // include_once("./View/StudentDetail.php");
         }
     }
 };

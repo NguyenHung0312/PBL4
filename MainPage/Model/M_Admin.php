@@ -11,6 +11,8 @@ class Model_Admin
         $user = "pbl4";
         $password = "Nguyenhung@0312";
         $database = "dulieu1";
+        $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+        return $db;
     }
     public function getAdminLogin($u, $p)
     {
@@ -26,11 +28,11 @@ class Model_Admin
             function validate($data)
             {
 
-                $data = trim($data);
+                // $data = trim($data);
 
-                $data = stripslashes($data);
+                // $data = stripslashes($data);
 
-                $data = htmlspecialchars($data);
+                // $data = htmlspecialchars($data);
 
                 return $data;
             }
@@ -88,15 +90,16 @@ class Model_Admin
         $password = "Nguyenhung@0312";
         $database = "dulieu1";
         $table = "comments";
-
+        $i = 0;
         $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
         foreach ($db->query("SELECT * FROM $table") as $row) {
+            $ID= $row['IDcmt'];
+            $Name= $row['Name'];
+            $cmt= $row['Comment'];
+            $i++;
+              $phongban[$i] = new E_Cmt($ID, $Name, $cmt);
+        return $phongban;
+
         }
     }
-
-    // public function getAdminDetail($stid)
-    // {
-    //     $allAdmin = $this->getAdminLogin();
-    //     return $allAdmin[$stid];
-    // }
 }

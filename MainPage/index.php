@@ -27,7 +27,7 @@ if(isset($_REQUEST['error']))
                 </div>
                 <div class="card-footer text-muted">
                     <input type="reset" class="float-right btn btn-primary ml-2" value="Reset">
-                    <input type="submit" class="float-right btn btn-primary" value="OK" onclick="check()">
+                    <input type="submit" class="float-right btn btn-primary" name="login" value="OK" onclick="check()">
                 </div>
             </div>
         </form>
