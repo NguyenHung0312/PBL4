@@ -1,5 +1,6 @@
 <?php
-$logFile = "/var/log/apache2/site000/access/access-2022-11-05.log"; // local path to log file
+$date = date('Y-m-d');
+$logFile = "/var/log/apache2/site000/access/access-" . $date . ".log"; // local path to log file
 // $logFile = "a"; // local path to log file
 $interval = 1000; //how often it checks the log file for changes, min 100
 $textColor = ""; //use CSS color
@@ -18,6 +19,8 @@ if (isset($_GET['getLog'])) {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Log</title>
+		<link href="https://nguyenhung0312.github.io/Hip/asset/css/img/Hip_Hip-removebg-preview.png" rel="icon" type="image/x-icon">
+
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 		<link rel="stylesheet" href="./assets/main.css">
@@ -35,12 +38,12 @@ if (isset($_GET['getLog'])) {
 				background-color: black;
 				color: <?php echo $textColor; ?>;
 				font-family: 'Ubuntu', sans-serif;
-				font-size: 16px;
+				font-size: 4px;
 				line-height: 20px;
 			}
 
 			h4 {
-				font-size: 18px;
+				font-size: 4px;
 				line-height: 22px;
 				color: #fff;
 			}
@@ -109,9 +112,9 @@ if (isset($_GET['getLog'])) {
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top:0; left: 0; z-index: 1;">
 			<a class="navbar-brand" href="#">CheckLogs</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
-			</button>
+			</button> -->
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul id="btn-item" class="navbar-nav mr-auto">
@@ -122,15 +125,10 @@ if (isset($_GET['getLog'])) {
 						<a class="nav-link" href="#">Logs</a>
 					</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-					<!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Secure</button> -->
-					<label for="" class="lb" style="color:#ccc;" >Off</label>
-					<label class="switch">
-						<input type="checkbox" checked aria-label="Search" id="but">
-						<span class="slider round"></span>
-					</label>
-					<label for="" class="lb" style="color: #28a745;">Secure</label>
+				<!-- <form action="" method="post"></form> -->
+				<form class="form-inline my-2 my-lg-0" action="./index.php" >
+					<input class="btn btn-primary" type="submit" placeholder="Search" >
+					<!-- <button class="btn btn-outline-success my-2 my-sm-0" type="button">Secure</button> -->
 				</form>
 			</div>
 		</nav>

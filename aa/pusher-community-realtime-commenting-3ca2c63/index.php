@@ -14,18 +14,18 @@ $has_comments = (count($comments) > 0);
 	
 	<link rel="stylesheet" href="css/main.css" type="text/css" />
 
-	<!--[if IE]>
-	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<!--[if lte IE 7]>
+	[if IE]>
+	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]
+	[if lte IE 7]>
 		<link rel="stylesheet" type="text/css" media="all" href="css/ie.css"/>
-		<script src="js/IE8.js" type="text/javascript"></script><![endif]-->	
-	<!--[if lt IE 7]>
-		<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
+		<script src="js/IE8.js" type="text/javascript"></script><![endif]	
+	[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]
 
 </head>
 
 <body id="index" class="home">
-<!-- 	
+	
 	<header id="banner" class="body">
 		<h1><a href="#">Smashing HTML5! <strong>HTML5 in the year <del>2022</del> <ins>2012</ins></strong></a></h1>
 		<nav><ul>
@@ -34,9 +34,9 @@ $has_comments = (count($comments) > 0);
 			<li><a href="#">blog</a></li>
 			<li><a href="#">contact</a></li>
 		</ul></nav>
-	</header> -->
+	</header>
 	
-	<!-- <section id="content" class="body">
+	<section id="content" class="body">
 	  
 	  <article class="hentry">	
 			<header>
@@ -58,7 +58,7 @@ $has_comments = (count($comments) > 0);
 			</div>
 		</article>
 			
-	</section> -->
+	</section>
 	
 	<section id="comments" class="body">
 	  

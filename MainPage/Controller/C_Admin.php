@@ -7,8 +7,8 @@ class Ctrl_Admin
         if (isset($_REQUEST['login'])) {
 
             if (isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
-                $modelStudent = new Model_Admin();
-                $student = $modelStudent->getAdminLogin($_REQUEST['username'], $_REQUEST['password']);
+                $modelLogin = new Model_Admin();
+                $student = $modelLogin->getAdminLogin($_REQUEST['username'], $_REQUEST['password']);
                 // include_once("./View/StudentDetail.php");
             }
         }
@@ -21,9 +21,9 @@ class Ctrl_Admin
 
             header("Location: ../");
         }
-        if (isset($_GET['xem'])) {
-            $modelStudent = new Model_Admin();
-            // $student = $modelStudent->getStudentDetail($_GET['stid']);
+        if (isset($_GET['cmt'])) {
+            $modelCMT = new Model_Admin();
+            // $student = $modelCMT->getStudentDetail($_GET['stid']);
             // include_once("./View/StudentDetail.php");
         }
     }

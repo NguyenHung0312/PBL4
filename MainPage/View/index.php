@@ -1,9 +1,9 @@
 <?php
 // session_start();
-if (empty($_COOKIE['Name'])) {
-  header("Location: ../");
-  exit();
-}
+// if (empty($_COOKIE['Name'])) {
+//   header("Location: ../");
+//   exit();
+// }
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,13 +16,40 @@ if (empty($_COOKIE['Name'])) {
   <meta name="copyright" content="PBL4">
   <meta name="description" content="A simple web application to test about Cross-Site Scripting (XSS)">
   <title>Web Test PBL4</title>
+  <link rel="stylesheet" href="./assets/style.css">
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <link href="https://nguyenhung0312.github.io/Hip/asset/css/img/Hip_Hip-removebg-preview.png" rel="icon" type="image/x-icon">
+  <!-- <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'> -->
+  <!-- <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'> -->
+  <!-- <link href="https://nguyenhung0312.github.io/Hip/asset/css/img/Hip_Hip-removebg-preview.png" rel="icon" type="image/x-icon"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.4/mini-dark.min.css">
   <script>
     function RS() {
       document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
   </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+  </style>
 </head>
 
 <body>
@@ -50,20 +77,24 @@ if (empty($_COOKIE['Name'])) {
         <?php if (isset($_GET['page']) && strtolower($_GET['page']) === 'about') : ?>
           <p>Web tạo ra nhằm thực hiện và khắc phục lỗ hổng XSS.</p>
         <?php else : ?>
-          <form action="./" method="post" accept-charset="utf-8" id="form" id="form" style="display: flex; flex-direction: column;">
+          <form action="../Controller/C_Admin.php" method="post" accept-charset="utf-8" id="form" id="form" style="display: flex; flex-direction: column;">
 
             <label for="comment_author" class="required">Your name</label>
-            <input type="text" name="name" id="comment_author" value="" tabindex="1" required="required" value="<?php if (!empty($name)) {echo $name;} ?>" style="width:240px ;flex: 1;"placeholder="Tên...">
+            <input type="text" name="name" id="comment_author" value="" tabindex="1" required="required" value="<?php if (!empty($name)) {
+                                                                                                                  echo $name;
+                                                                                                                } ?>" style="width:240px ;flex: 1;" placeholder="Tên...">
 
             <label for="comment" class="required">Your comment</label>
-            <textarea name="name2" id="comment" rows="10" tabindex="2" required="required" style="flex: 1;"placeholder="Binh luan..."></textarea>
+            <textarea name="name2" id="comment" rows="10" tabindex="2" required="required" style="flex: 1;" placeholder="Binh luan..."></textarea>
 
             <input type="hidden" name="comment_post_ID" value="<?php echo ($comment_post_ID); ?>" id="comment_post_ID" />
-            <input name="submit" class="primary" type="submit" value="Submit comment"style="width: 180px;" />
+            <input name="submit" class="primary" type="submit" value="Submit comment" name="cmt" style="width: 180px;" />
           </form>
           <!-- //form gửi submit -->
           <!-- <form action="MainPage.php" method="post" accept-charset="utf-8" id="form" style="display: flex; flex-direction: column;">
-            Tên bạn là: <input type="text" name="name" class="t1" style="width:240px ;flex: 1;" value="<?php if (!empty($name)) {echo $name;} ?>" placeholder="John Doe..." autofocus required>
+            Tên bạn là: <input type="text" name="name" class="t1" style="width:240px ;flex: 1;" value="<?php if (!empty($name)) {
+                                                                                                          echo $name;
+                                                                                                        } ?>" placeholder="John Doe..." autofocus required>
             Binh luan: <input type="text" name="name2" class="t2" style="width:240px ; flex: 1;" value="" placeholder="Binh Luan.." required>
             <button type="submit" class="primary" style="width: 80px;">Submit!</button>
           </form> -->
@@ -75,6 +106,7 @@ if (empty($_COOKIE['Name'])) {
           <!-- <center><img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/301701055_465250165461896_4261023679521712020_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pKdUf_hBI7kAX9uH-1r&_nc_ht=scontent.fdad1-4.fna&oh=03_AdR_4E5suBxNEuqClaXkiVKcTrCUURdfJ9gd7IoMFn5RWA&oe=638CA889" alt="Đề bài" width="500" height="500" style="vertical-align:middle; align-items: center;"></center> -->
 
         </div>
+
         <div id="name">
           <?php
           if (!empty($_REQUEST['name']) && !empty($_REQUEST['name2'])) : ?>
@@ -84,8 +116,53 @@ if (empty($_COOKIE['Name'])) {
           <?php endif; ?>
         </div>
       </div>
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Recent Comments</h4>
+            <h6 class="card-subtitle">Latest Comments section by users</h6>
+          </div>
+
+          <div class="comment-widgets m-b-20">
+
+            <div class="d-flex flex-row comment-row">
+              <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+              <div class="comment-text w-100">
+                <h5>Nguyen Hung</h5>
+                <div class="comment-footer">
+                  <span class="date">April 14, 2022</span>
+                  <span class="label label-info">Pending</span> <span class="action-icons">
+                    <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                    <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                    <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                  </span>
+                </div>
+                <p class="m-b-5 m-t-10">Test XSS cho vui thoi</p>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row comment-row ">
+              <div class="p-2"><span class="round"><img src="https://i.imgur.com/tT8rjKC.jpg" alt="user" width="50"></span></div>
+              <div class="comment-text active w-100">
+                <h5>Jonty Andrews</h5>
+                <div class="comment-footer">
+                  <span class="date">March 13, 2020</span>
+                  <span class="label label-success">Approved</span> <span class="action-icons active">
+                    <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                    <a href="#" data-abc="true"><i class="fa fa-rotate-right text-success"></i></a>
+                    <a href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></a>
+                  </span>
+                </div>
+                <p class="m-b-5 m-t-10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
   <script>
     const $name = document.getElementById('name');
 
