@@ -9,7 +9,16 @@ class Ctrl_Admin
             if (isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
                 $modelLogin = new Model_Admin();
                 $student = $modelLogin->getAdminLogin($_REQUEST['username'], $_REQUEST['password']);
-                // include_once("./View/StudentDetail.php");
+                $commentAll=$modelLogin->getComment();
+                if($student==1)
+                {
+                    include_once("../View/index.php");
+                }else if($student==0)
+                {
+                    header("Location: ../?error=Incorect User name or password");
+                }else{
+                    header("Location: ../");
+                }
             }
         }
         if (isset($_REQUEST['del'])) {
@@ -21,10 +30,11 @@ class Ctrl_Admin
 
             header("Location: ../");
         }
-        if (isset($_GET['cmt'])) {
+        if (isset($_POST['cmt'])) {
             $modelCMT = new Model_Admin();
-            // $student = $modelCMT->getStudentDetail($_GET['stid']);
-            // include_once("./View/StudentDetail.php");
+            $comment=$modelCMT->addComment($_REQUEST['name'],$_REQUEST['name2'],date("Y/m/d G.i:s"));
+            $commentAll=$modelCMT->getComment();
+            include_once("../View/index.php");
         }
     }
 };

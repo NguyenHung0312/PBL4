@@ -4,11 +4,11 @@ class E_Cmt
     public $id;
     public $name;
     public $cmt;
-    public function __construct($_id, $_name, $_cmt)
+    public function __construct($id, $name, $cmt)
     {
-        $this->id = $_id;
-        $this->name = $_name;
-        $this->cmt = $_cmt;
+        $this->id = $id;
+        $this->name = $name;
+        $this->cmt = $cmt;
     }
 }
 ?>

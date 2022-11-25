@@ -16,7 +16,7 @@
   <meta name="copyright" content="PBL4">
   <meta name="description" content="A simple web application to test about Cross-Site Scripting (XSS)">
   <title>Web Test PBL4</title>
-  <link rel="stylesheet" href="./assets/style.css">
+  <!-- <link rel="stylesheet" href="./assets/style.css"> -->
   <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <link href="https://nguyenhung0312.github.io/Hip/asset/css/img/Hip_Hip-removebg-preview.png" rel="icon" type="image/x-icon">
   <!-- <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'> -->
@@ -29,6 +29,99 @@
     }
   </script>
   <style>
+    @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #232e33;
+      font-family: 'Calibri', sans-serif !important;
+    }
+
+    .card {
+      max-width: 1224px !important;
+    }
+
+    .card-no-border .card {
+      border: 0px;
+      border-radius: 4px;
+      -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+      /* max-width: 452px!important; */
+    }
+
+    .card-body {
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 1.25rem
+    }
+
+    .comment-widgets .comment-row:hover {
+      background: rgba(0, 0, 0, 0.02);
+      cursor: pointer;
+    }
+
+    .comment-widgets .comment-row {
+      border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+      padding: 15px;
+    }
+
+    .comment-text:hover {
+      visibility: hidden;
+    }
+
+    .comment-text:hover {
+      visibility: visible;
+    }
+
+    .label {
+      padding: 3px 10px;
+      line-height: 13px;
+      color: #232e33;
+      font-weight: 400;
+      border-radius: 4px;
+      font-size: 75%;
+    }
+
+    .round img {
+      border-radius: 100%;
+    }
+
+    .label-info {
+      background-color: #1976d2;
+    }
+
+    .label-success {
+      background-color: green;
+    }
+
+    .label-danger {
+      /* background-color: #ef5350; */
+      background-color: #232e33;
+    }
+
+    .action-icons a {
+      padding-left: 7px;
+      vertical-align: middle;
+      color: #99abb4;
+    }
+
+    .action-icons a:hover {
+      color: #1976d2;
+    }
+
+    .mt-100 {
+      margin-top: 100px
+    }
+
+    .mb-100 {
+      margin-bottom: 100px
+    }
+
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -77,7 +170,8 @@
         <?php if (isset($_GET['page']) && strtolower($_GET['page']) === 'about') : ?>
           <p>Web tạo ra nhằm thực hiện và khắc phục lỗ hổng XSS.</p>
         <?php else : ?>
-          <form action="../Controller/C_Admin.php" method="post" accept-charset="utf-8" id="form" id="form" style="display: flex; flex-direction: column;">
+          <!-- <form action="../Controller/C_Admin.php" method="post" accept-charset="utf-8" id="form" id="form" style="display: flex; flex-direction: column;"> -->
+          <form action="../Controller/C_Admin.php" method="post" accept-charset="utf-8" id="form" style="display: flex; flex-direction: column;">
 
             <label for="comment_author" class="required">Your name</label>
             <input type="text" name="name" id="comment_author" value="" tabindex="1" required="required" value="<?php if (!empty($name)) {
@@ -88,7 +182,8 @@
             <textarea name="name2" id="comment" rows="10" tabindex="2" required="required" style="flex: 1;" placeholder="Binh luan..."></textarea>
 
             <input type="hidden" name="comment_post_ID" value="<?php echo ($comment_post_ID); ?>" id="comment_post_ID" />
-            <input name="submit" class="primary" type="submit" value="Submit comment" name="cmt" style="width: 180px;" />
+            <input name="cmt" class="primary" type="submit" value="Submit comment" style="width: 180px;" />
+
           </form>
           <!-- //form gửi submit -->
           <!-- <form action="MainPage.php" method="post" accept-charset="utf-8" id="form" style="display: flex; flex-direction: column;">
@@ -118,15 +213,35 @@
       </div>
       <div class="col-md-12">
 
-        <div class="card">
+        <div class="card" style="max-width: 1224px!important;">
           <div class="card-body">
             <h4 class="card-title">Recent Comments</h4>
             <h6 class="card-subtitle">Latest Comments section by users</h6>
           </div>
-
           <div class="comment-widgets m-b-20">
+            <?php
+            if (sizeof($commentAll) > 0) {
+              for ($i = 1; $i <= sizeof($commentAll); $i++) {
+                echo ' <div class="d-flex flex-row comment-row">
+                  <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+                  <div class="comment-text w-100">
+                    <h5 style="text-decoration:underline ;">' . $commentAll[$i]->name . '</h5>
+                    <div class="comment-footer">
+                      <span class="date">' . $commentAll[$i]->date . '</span>
+                      <span class="label label-info">Pending</span> <span class="action-icons">
+                        <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                        <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                        <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                      </span>
+                    </div>
+                    <p class="m-b-5 m-t-10" >' . $commentAll[$i]->cmt . '</p>
+                  </div>
+                </div>';
+              }
+            }
+            ?>
 
-            <div class="d-flex flex-row comment-row">
+            <!-- <div class="d-flex flex-row comment-row">
               <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
               <div class="comment-text w-100">
                 <h5>Nguyen Hung</h5>
@@ -156,7 +271,7 @@
                 </div>
                 <p class="m-b-5 m-t-10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites</p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

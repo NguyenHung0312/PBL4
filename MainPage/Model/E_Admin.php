@@ -6,7 +6,7 @@ class E_admin
     public $password;
     public function __construct($_id, $_user, $_password)
     {
-        $this->id = $_id;
+        $this->_id = $_id;
         $this->user = $_user;
         $this->password = $_password;
     }
